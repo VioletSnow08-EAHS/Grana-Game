@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Key : MonoBehaviour
 {
     [Header(" Elements ")]
-    [SerializeField] private UnityEngine.UI.Text keyText;
+    [SerializeField] private Text keyText;
     private char key;
 
     [Header(" Settings ")]
@@ -16,6 +16,11 @@ public class Key : MonoBehaviour
     {
         this.key = key;
         keyText.text = key.ToString();
+    }
+
+    public void SetKeyColor(Color newColor)
+    {
+        GetComponent<Image>().color = newColor;
     }
 
     public Button GetButton()

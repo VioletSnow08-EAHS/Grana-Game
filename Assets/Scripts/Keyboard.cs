@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class Keyboard : MonoBehaviour
 {
@@ -24,6 +28,7 @@ public class Keyboard : MonoBehaviour
     [SerializeField] private KeyboardLine[] lines;
 
     [Header(" Key Settings ")]
+    [SerializeField] private Color keyColor;
     [Range(0f, 1f)]
     [SerializeField] private float keyToLineRatio;
     [Range(0f, 1f)]
@@ -50,8 +55,8 @@ public class Keyboard : MonoBehaviour
 
     private void UpdateRectTransform()
     {
-        float width = widthPercent * Screen.width;
-        float height = heightPercent * Screen.height;
+        float width = widthPercent * UnityEngine.Screen.width;
+        float height = heightPercent * UnityEngine.Screen.height;
 
         // Configuring size of the keyboard container
         rectTransform.sizeDelta = new Vector2(width, height);
@@ -59,11 +64,13 @@ public class Keyboard : MonoBehaviour
         //Configure bottom offset
         Vector2 position;
 
-        position.x = Screen.width / 2;
-        position.y = bottomOffset * Screen.height + height / 2;
+        position.x = UnityEngine.Screen.width / 2;
+        position.y = bottomOffset * UnityEngine.Screen.height + height / 2;
 
         rectTransform.position = position;
     }
+
+    private string text = "";
 
     private void CreateKeys()
     {
@@ -77,7 +84,7 @@ public class Keyboard : MonoBehaviour
                 {
                     // Its the backspace key
                     Key keyInstance = Instantiate(backspaceKeyPrefab, rectTransform);
-
+                    keyInstance.SetKeyColor(keyColor);
                     keyInstance.GetButton().onClick.AddListener(() => BackspacePressedCallback());
                 }
                 else
@@ -85,7 +92,7 @@ public class Keyboard : MonoBehaviour
                     // It's a normal key
                     Key keyInstance = Instantiate(keyPrefab, rectTransform);
                     keyInstance.SetKey(key);
-
+                    keyInstance.SetKeyColor(keyColor);
                     keyInstance.GetButton().onClick.AddListener(() => KeyPressedCallback(key));
 
                 }
@@ -118,10 +125,6 @@ public class Keyboard : MonoBehaviour
 
             float lineY = +rectTransform.rect.height / 2 - lineHeight / 2 - i * lineHeight;
 
-
-
-
-
             for (int j = 0; j < lines[i].keys.Length; j++)
             {
                 bool isBackspaceKey = lines[i].keys[j] == '.';
@@ -148,16 +151,32 @@ public class Keyboard : MonoBehaviour
         }
     }
 
+    public void ColorUpdate()
+    {
+        GetComponent<Key>().SetKeyColor(keyColor);
+    }
+
+    public string GetTextInput()
+    {
+        return text;
+    }
+
     private void BackspacePressedCallback()
     {
         Debug.Log("Backspace Pressed");
+        text = text.Remove(text.Length - 1, 1);
+        Debug.Log(text);
     }
 
     private void KeyPressedCallback(char key)
     {
         Debug.Log($"Key Pressed : {key}");
+        text += key;
+        Debug.Log(text);
     }
 }
+
+
 
 [System.Serializable]
 public struct KeyboardLine
