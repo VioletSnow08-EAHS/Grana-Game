@@ -4,6 +4,7 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,6 +35,7 @@ public class Keyboard : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float keyXSpacing;
 
+    public GameObject TextOutPut;
     // Start is called before the first frame update
     IEnumerator Start()
     {
@@ -94,7 +96,7 @@ public class Keyboard : MonoBehaviour
                     keyInstance.SetKey(key);
                     keyInstance.SetKeyColor(keyColor);
                     keyInstance.GetButton().onClick.AddListener(() => KeyPressedCallback(key));
-
+                    keyInstance.SetKeyColor(keyColor);
                 }
             }
         }
@@ -151,10 +153,10 @@ public class Keyboard : MonoBehaviour
         }
     }
 
-    public void ColorUpdate()
+    /*public void ColorUpdate()
     {
         GetComponent<Key>().SetKeyColor(keyColor);
-    }
+    }*/
 
     public string GetTextInput()
     {
@@ -165,13 +167,24 @@ public class Keyboard : MonoBehaviour
     {
         Debug.Log("Backspace Pressed");
         text = text.Remove(text.Length - 1, 1);
+        if (TextOutPut != null)
+        {
+            TextOutPut.GetComponent<TextMeshPro>().text = text;
+        }
         Debug.Log(text);
     }
 
     private void KeyPressedCallback(char key)
     {
         Debug.Log($"Key Pressed : {key}");
-        text += key;
+        if (text.Length <= TextOutPut.GetComponent<RectTransform>().sizeDelta.x * 1.25)
+        {
+            text += key;
+            if (TextOutPut != null)
+            {
+                TextOutPut.GetComponent<TextMeshPro>().text = text;
+            }
+        }
         Debug.Log(text);
     }
 }
