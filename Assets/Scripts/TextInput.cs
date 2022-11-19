@@ -11,15 +11,15 @@ public class TextInput : MonoBehaviour
     [SerializeField] private GameObject currentTextBox;
 
     [Header(" Raw Dimension Settings ")]
-    [Range(0f, 2f)]
+    [Range(0f, 15f)]
     [SerializeField] private float width;
-    [Range(0f, 2f)]
+    [Range(0f, 15f)]
     [SerializeField] private float height;
 
     [Header(" Box Position ")]
     [Range(0f, 2f)]
     [SerializeField] private float X;
-    [Range(0f, 2f)]
+    [Range(0, 2f)]
     [SerializeField] private float Y;
     [Range(0f, 1f)]
     [SerializeField] private float Z;
@@ -47,21 +47,12 @@ public class TextInput : MonoBehaviour
 
     public void SetText(string newText)
     {
-        currentTextBox.GetComponent<TextMeshProUGUI>().text = newText;
+        currentTextBox.GetComponent<TextMeshPro>().text = newText;
     }
 
     public void SetCurrentTextBox(GameObject newTextBox)
     {
         currentTextBox = newTextBox;
     }
-    public GameObject GenerateTextInputBox()
-    {
-        GameObject newTextBox = new GameObject();
-        newTextBox.AddComponent<TextInput>();
-        newTextBox.AddComponent<TextMeshProUGUI>();
 
-        newTextBox.GetComponent<TextInput>().SetCurrentTextBox(newTextBox);
-
-        return newTextBox;
-    }
 }
