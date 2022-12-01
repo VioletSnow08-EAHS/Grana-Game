@@ -27,17 +27,17 @@ public class TextInput : MonoBehaviour
 
     public void Start()
     {
-        /*UpdateRectTransform();*/
+        UpdateRectTransform();
     }
 
     public void Update()
     {
-        UpdateRectTransform();
+
     }
 
     public void UpdateRectTransform()
     {
-        rectTransform.sizeDelta = new Vector2(width, height);
+        rectTransform.sizeDelta = new Vector2(width * Screen.width / 3, height * Screen.height / 5);
 
         float xPos = GetComponentInParent<RectTransform>().position.x * X;
         float yPos = GetComponentInParent<RectTransform>().position.y * Y;
@@ -47,12 +47,17 @@ public class TextInput : MonoBehaviour
 
     public void SetText(string newText)
     {
-        currentTextBox.GetComponent<TextMeshPro>().text = newText;
+        currentTextBox.GetComponent<TextMeshProUGUI>().text = newText;
     }
 
     public void SetCurrentTextBox(GameObject newTextBox)
     {
         currentTextBox = newTextBox;
+    }
+
+    public void SetPosition(Vector2 newPos)
+    {
+        currentTextBox.transform.localPosition = newPos;
     }
 
 }

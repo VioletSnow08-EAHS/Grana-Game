@@ -18,8 +18,8 @@ public class Background : MonoBehaviour
 
     public void UpdateTransform()
     {
-        rectTransform.position = new Vector3(Screen.width / Screen.width, Screen.height / Screen.height, 1);
+        rectTransform.position = new Vector3(Screen.width / 2, Screen.height / 2, 1);
 
-        rectTransform.localScale = new Vector3(Screen.width / 2, Screen.height / 2, 1);
+        rectTransform.localScale = new Vector3(Screen.width, Screen.height, 1);
     }
 }
