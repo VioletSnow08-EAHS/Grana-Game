@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,10 +9,6 @@ using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
-    [Header(" Element Settings ")]
-    [SerializeField] private Color keyColor;
-
-
     private GameObject GUICanvas;
     private GameObject BackgroundCanvas;
     private GameObject Keyboard;
@@ -19,15 +16,10 @@ public class GUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateGUICanvas();
-        GenerateBackgroundCanvas();
-        GenerateEventSystem();
-        GenerateKeyboard();
-        GenerateTextInputBox(1);
-        GenerateBackground();
+
     }
 
-    private void GenerateGUICanvas()
+    public void GenerateGUICanvas()
     {
         GameObject empty = new GameObject();
         empty.name = "Canvas Container";
@@ -51,7 +43,7 @@ public class GUIManager : MonoBehaviour
         BackgroundCanvas = empty;
     }
 
-    private void GenerateEventSystem()
+    public void GenerateEventSystem()
     {
         GameObject EventSystem = Instantiate((GameObject)Resources.Load("Prefabs/EventSystemPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         EventSystem.name = "GUIEventSystem";
@@ -72,7 +64,11 @@ public class GUIManager : MonoBehaviour
         newTextBox.GetComponent<TextInput>().SetCurrentTextBox(newTextBox);
         Keyboard.GetComponent<Keyboard>().TextOutPut = newTextBox;
         newTextBox.transform.SetParent(GUICanvas.transform);
+        GenerateTextBoxBackground(newTextBox, index);
+    }
 
+    public void GenerateTextBoxBackground(GameObject newTextBox, int index)
+    {
         GameObject newTextBoxBackground = Instantiate((GameObject)Resources.Load("Prefabs/TextOutputBackground"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         newTextBoxBackground.name = $"TextOutputBackground {index}";
         newTextBoxBackground.GetComponent<TextOutputBackground>().ParentGameObject = newTextBox;
@@ -83,7 +79,16 @@ public class GUIManager : MonoBehaviour
     {
         GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Backgrounds/Background-Gray"));
         background.name = "Background";
-        background.transform.SetParent(GUICanvas.transform);
+
+        background.transform.SetParent(BackgroundCanvas.transform);
         background.transform.SetSiblingIndex(0);
+    }
+
+    public void GenerateDailyPuzzleButton()
+    {
+        GameObject newButton = Instantiate((GameObject)Resources.Load("Prefabs/DailyButtonPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        newButton.name = "DailyPuzzleButton";
+        newButton.GetComponent<DailyPuzzleButtonManager>().SetCurrentButton(newButton.GetComponent<Button>());
+        newButton.transform.SetParent(GUICanvas.transform);
     }
 }
