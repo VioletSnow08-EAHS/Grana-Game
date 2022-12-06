@@ -23,7 +23,6 @@ public class TextInput : MonoBehaviour
     [SerializeField] private float Y;
     [Range(0f, 1f)]
     [SerializeField] private float Z;
-    private string text = "";
 
     public void Start()
     {
