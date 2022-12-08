@@ -1,5 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +18,7 @@ public class GUIManager : MonoBehaviour
     private GameObject GUICanvas;
     private GameObject EventSystem;
     private GameObject Keyboard;
+    private GameObject GameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +28,21 @@ public class GUIManager : MonoBehaviour
         GenerateKeyboard();
         GenerateTextInputBox();
         GenerateBackground();
+        StartGame("default");
     }
 
+    private async void StartGame(string word)
+    {
+        GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameManager.name = $"GameManager - Word:  \"{word}\"";
+        GameManager.GetComponent<GameManager>().SetWord(word);
+
+        //read JSON file of anagramsList and send it to GameManager
+        var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
+        var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
+        GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
+        
+    }
     private void GenerateGUICanvas()
     {
         GameObject empty = new GameObject();

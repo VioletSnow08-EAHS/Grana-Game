@@ -27,12 +27,13 @@ public class TextInput : MonoBehaviour
 
     public void Start()
     {
-        /*UpdateRectTransform();*/
+        UpdateRectTransform();
+
     }
 
     public void Update()
     {
-        UpdateRectTransform();
+        
     }
 
     public void UpdateRectTransform()
@@ -44,7 +45,7 @@ public class TextInput : MonoBehaviour
 
         rectTransform.localPosition = new Vector3(xPos, yPos, Z);
     }
-
+    
     public void SetText(string newText)
     {
         currentTextBox.GetComponent<TextMeshPro>().text = newText;

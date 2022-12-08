@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 1677795643430124475}
   currentTextBox: {fileID: 5877942918929187499}
-  width: 6
+  width: 3.99
   height: 1
   X: 2
   Y: 2
