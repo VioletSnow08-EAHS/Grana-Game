@@ -8,30 +8,25 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
-    [Header(" Element Settings ")]
-    [SerializeField] private Color keyColor;
-
-
     private GameObject GUICanvas;
-    private GameObject EventSystem;
+    private GameObject BackgroundCanvas;
     private GameObject Keyboard;
     private GameObject GameManager;
 
-    // Start is called before the first frame update
-    void Start()
+    public void GenerateGUICanvas()
     {
-        GenerateGUICanvas();
-        GenerateEventSystem();
-        GenerateKeyboard();
-        GenerateTextInputBox();
-        GenerateBackground();
-        StartGame("default");
+        GameObject empty = new GameObject();
+        empty.name = "Canvas Container";
+        GUICanvas = Instantiate((GameObject)Resources.Load("Prefabs/GUICanvasPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GUICanvas.name = "GUICanvas";
+        GUICanvas.transform.parent = empty.transform;
     }
 
-    private  void StartGame(string word)
+private  void StartGame(string word)
     {
         GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         GameManager.name = $"GameManager - Word:  \"{word}\"";
@@ -43,18 +38,26 @@ public class GUIManager : MonoBehaviour
         GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
         
     }
-    private void GenerateGUICanvas()
+    
+
+    public void GenerateBackgroundCanvas()
     {
         GameObject empty = new GameObject();
-        empty.name = "Canvas Container";
-        GUICanvas = Instantiate((GameObject)Resources.Load("Prefabs/GUICanvasPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
-        GUICanvas.name = "GUICanvas";
-        GUICanvas.transform.parent = empty.transform;
+        empty.name = "Background Canvas";
+        empty.AddComponent<Canvas>();
+        empty.AddComponent<CanvasScaler>();
+        empty.AddComponent<GraphicRaycaster>();
+
+        empty.GetComponent<RectTransform>().localPosition = new Vector3(GUICanvas.GetComponent<RectTransform>().transform.position.x, GUICanvas.GetComponent<RectTransform>().transform.position.y, 0);
+        empty.GetComponent<RectTransform>().sizeDelta = GUICanvas.GetComponent<RectTransform>().sizeDelta;
+
+        empty.transform.SetParent(GUICanvas.transform);
+        BackgroundCanvas = empty;
     }
 
-    private void GenerateEventSystem()
+    public void GenerateEventSystem()
     {
-        EventSystem = Instantiate((GameObject)Resources.Load("Prefabs/EventSystemPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameObject EventSystem = Instantiate((GameObject)Resources.Load("Prefabs/EventSystemPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         EventSystem.name = "GUIEventSystem";
         EventSystem.transform.SetParent(GUICanvas.transform);
     }
@@ -66,18 +69,73 @@ public class GUIManager : MonoBehaviour
         Keyboard.name = "Keyboard";
         Keyboard.transform.SetParent(GUICanvas.transform);
     }
-    public void GenerateTextInputBox()
+
+    public void GenerateTextInputBox(int index)
     {
         GameObject newTextBox = Instantiate((GameObject)Resources.Load("Prefabs/TextOutputPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
-        newTextBox.name = "TextOutput";
+        newTextBox.name = $"TextOutput {index}";
         newTextBox.GetComponent<TextInput>().SetCurrentTextBox(newTextBox);
         Keyboard.GetComponent<Keyboard>().TextOutPut = newTextBox;
+        newTextBox.transform.SetParent(GUICanvas.transform);
+        GenerateTextBoxBackground(newTextBox, index);
+    }
+
+    public void GenerateTextBoxBackground(GameObject newTextBox, int index)
+    {
+        GameObject newTextBoxBackground = Instantiate((GameObject)Resources.Load("Prefabs/TextOutputBackground"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        newTextBoxBackground.name = $"TextOutputBackground {index}";
+        newTextBoxBackground.GetComponent<TextOutputBackground>().ParentGameObject = newTextBox;
+        newTextBoxBackground.transform.SetParent(BackgroundCanvas.transform);
     }
 
     public void GenerateBackground()
     {
         GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Backgrounds/Background-Gray"));
         background.name = "Background";
-        background.transform.SetParent(GUICanvas.transform);
+        background.transform.SetParent(BackgroundCanvas.transform);
+        background.transform.SetSiblingIndex(0);
+    }
+
+    public void GeneratePauseButton(int index)
+    {
+        GameObject pauseButton = Instantiate((GameObject)Resources.Load("Prefabs/PauseButtonPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        pauseButton.name = "Pause Button";
+        pauseButton.GetComponent<PauseButton>().SetCurrentButton(pauseButton);
+        pauseButton.transform.SetParent(GUICanvas.transform);
+        GenerateTextBoxBackground(pauseButton, index);
+    }
+
+    public void GenerateMenuButton(string type, string text, Vector2 position)
+    {
+        GameObject newButton = Instantiate((GameObject)Resources.Load("Prefabs/MenuButtonPrefab"), position, Quaternion.identity);
+        newButton.name = "default_menu_button";
+        newButton.GetComponent<MenuButtonManager>().SetCurrentButton(newButton.GetComponent<Button>());
+        newButton.GetComponent<MenuButtonManager>().SetType(type);
+        /*        newButton.GetComponent<MenuButtonManager>().SetPosition(position);*/
+        newButton.GetComponent<MenuButtonManager>().SetButtonText(text);
+        newButton.transform.SetParent(GUICanvas.transform);
+    }
+
+    public void GenerateTitleText(Vector2 Position, Vector2 Size, string TitleText)
+    {
+        GameObject title = new GameObject();
+        title.name = "Title Text";
+        title.AddComponent<TextMeshProUGUI>();
+
+        title.GetComponent<TextMeshProUGUI>().text = TitleText;
+
+        title.GetComponent<TextMeshProUGUI>().fontSize = 150;
+        title.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+
+        title.GetComponent<RectTransform>().sizeDelta = Size;
+
+        title.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
+
+        Position = new Vector2(GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.x, GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.y * 1.65f);
+        title.transform.localPosition = Position;
+
+        title.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
+
+        GenerateTextBoxBackground(title, 1);
     }
 }

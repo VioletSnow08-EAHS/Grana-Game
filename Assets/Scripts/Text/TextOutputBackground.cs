@@ -5,7 +5,8 @@ using UnityEngine;
 public class TextOutputBackground : MonoBehaviour
 {
     [SerializeField] private RectTransform RectTransform;
-    [SerializeField] private RectTransform ParentRectTransform;
+    public GameObject ParentGameObject;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class TextOutputBackground : MonoBehaviour
 
     public void UpdateRectTransform()
     {
-        RectTransform.sizeDelta = new Vector2(ParentRectTransform.sizeDelta.x, ParentRectTransform.sizeDelta.y);
-        RectTransform.localScale = new Vector2(ParentRectTransform.sizeDelta.x, ParentRectTransform.sizeDelta.y);
+        RectTransform.sizeDelta = new Vector2(ParentGameObject.GetComponent<RectTransform>().sizeDelta.x, ParentGameObject.GetComponent<RectTransform>().sizeDelta.y);
+        RectTransform.localPosition = ParentGameObject.GetComponent<RectTransform>().localPosition;
     }
 }

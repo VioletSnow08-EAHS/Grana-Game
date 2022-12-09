@@ -169,7 +169,7 @@ public class Keyboard : MonoBehaviour
         text = text.Remove(text.Length - 1, 1);
         if (TextOutPut != null)
         {
-            TextOutPut.GetComponent<TextMeshPro>().text = text;
+            TextOutPut.GetComponent<TextMeshProUGUI>().text = text;
         }
         Debug.Log(text);
     }
@@ -177,12 +177,12 @@ public class Keyboard : MonoBehaviour
     private void KeyPressedCallback(char key)
     {
         Debug.Log($"Key Pressed : {key}");
-        if (text.Length <= TextOutPut.GetComponent<RectTransform>().sizeDelta.x * 1.25)
+        if (text.Length <= TextOutPut.GetComponent<RectTransform>().sizeDelta.x / TextOutPut.GetComponent<TextMeshProUGUI>().fontSize / 1.25f) // edit here
         {
             text += key;
             if (TextOutPut != null)
             {
-                TextOutPut.GetComponent<TextMeshPro>().text = text;
+                TextOutPut.GetComponent<TextMeshProUGUI>().text = text;
             }
         }
         Debug.Log(text);

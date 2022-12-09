@@ -23,32 +23,25 @@ public class TextInput : MonoBehaviour
     [SerializeField] private float Y;
     [Range(0f, 1f)]
     [SerializeField] private float Z;
-    private string text = "";
 
     public void Start()
     {
         UpdateRectTransform();
-
-    }
-
-    public void Update()
-    {
-        
     }
 
     public void UpdateRectTransform()
     {
-        rectTransform.sizeDelta = new Vector2(width, height);
+        rectTransform.sizeDelta = new Vector2(width * Screen.width / 3, height * Screen.height / 5);
 
         float xPos = GetComponentInParent<RectTransform>().position.x * X;
         float yPos = GetComponentInParent<RectTransform>().position.y * Y;
 
         rectTransform.localPosition = new Vector3(xPos, yPos, Z);
     }
-    
+
     public void SetText(string newText)
     {
-        currentTextBox.GetComponent<TextMeshPro>().text = newText;
+        currentTextBox.GetComponent<TextMeshProUGUI>().text = newText;
     }
 
     public void SetCurrentTextBox(GameObject newTextBox)
@@ -56,4 +49,8 @@ public class TextInput : MonoBehaviour
         currentTextBox = newTextBox;
     }
 
+    public void SetPosition(Vector2 newPos)
+    {
+        currentTextBox.transform.localPosition = newPos;
+    }
 }
