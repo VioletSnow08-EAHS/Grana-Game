@@ -60,3 +60,9 @@ crashlytics-build.properties
 
 
 Assets/Scripts/Text.cs.meta
+
+# Manually ignore Assets/meta files
+#Ignore all .meta file
+*.meta
+#But not source file with postfix. which is everything but a folder
+!*.*.meta
