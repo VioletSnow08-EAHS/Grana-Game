@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccf54b0f-55a6-40f1-af66-14541d4c2420" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Grana-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Grana-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GUIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Background.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Background.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GUIManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Key.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Key.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Keyboard.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Keyboard.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +85,7 @@
       <updated>1669738447788</updated>
       <workItem from="1669738451565" duration="8400000" />
       <workItem from="1670423682828" duration="7714000" />
-      <workItem from="1670554621212" duration="4844000" />
+      <workItem from="1670554621212" duration="5579000" />
     </task>
     <servers />
   </component>
@@ -110,13 +114,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs</url>
-          <line>100</line>
+          <line>102</line>
           <properties documentPath="C:\Users\emmal\Documents\Github\Grana-Game\Assets\Scripts\GameManager.cs" initialLine="74" containingFunctionPresentation="method 'SetAnagramsList'">
             <startOffsets>
-              <option value="3215" />
+              <option value="3259" />
             </startOffsets>
             <endOffsets>
-              <option value="3216" />
+              <option value="3260" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
