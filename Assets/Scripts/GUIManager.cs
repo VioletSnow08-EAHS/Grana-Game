@@ -31,7 +31,7 @@ public class GUIManager : MonoBehaviour
         StartGame("default");
     }
 
-    private async void StartGame(string word)
+    private  void StartGame(string word)
     {
         GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         GameManager.name = $"GameManager - Word:  \"{word}\"";
