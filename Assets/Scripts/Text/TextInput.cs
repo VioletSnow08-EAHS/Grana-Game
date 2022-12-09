@@ -29,11 +29,6 @@ public class TextInput : MonoBehaviour
         UpdateRectTransform();
     }
 
-    public void Update()
-    {
-
-    }
-
     public void UpdateRectTransform()
     {
         rectTransform.sizeDelta = new Vector2(width * Screen.width / 3, height * Screen.height / 5);
@@ -58,5 +53,4 @@ public class TextInput : MonoBehaviour
     {
         currentTextBox.transform.localPosition = newPos;
     }
-
 }

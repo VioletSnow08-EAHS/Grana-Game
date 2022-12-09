@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +15,7 @@ public class GUIManager : MonoBehaviour
     private GameObject GUICanvas;
     private GameObject BackgroundCanvas;
     private GameObject Keyboard;
+    private GameObject GameManager;
 
     public void GenerateGUICanvas()
     {
@@ -21,6 +25,20 @@ public class GUIManager : MonoBehaviour
         GUICanvas.name = "GUICanvas";
         GUICanvas.transform.parent = empty.transform;
     }
+
+private  void StartGame(string word)
+    {
+        GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameManager.name = $"GameManager - Word:  \"{word}\"";
+        GameManager.GetComponent<GameManager>().SetWord(word);
+
+        //read JSON file of anagramsList and send it to GameManager
+        var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
+        var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
+        GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
+        
+    }
+    
 
     public void GenerateBackgroundCanvas()
     {
@@ -51,6 +69,7 @@ public class GUIManager : MonoBehaviour
         Keyboard.name = "Keyboard";
         Keyboard.transform.SetParent(GUICanvas.transform);
     }
+
     public void GenerateTextInputBox(int index)
     {
         GameObject newTextBox = Instantiate((GameObject)Resources.Load("Prefabs/TextOutputPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
@@ -73,7 +92,6 @@ public class GUIManager : MonoBehaviour
     {
         GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Backgrounds/Background-Gray"));
         background.name = "Background";
-
         background.transform.SetParent(BackgroundCanvas.transform);
         background.transform.SetSiblingIndex(0);
     }
@@ -120,5 +138,4 @@ public class GUIManager : MonoBehaviour
 
         GenerateTextBoxBackground(title, 1);
     }
-
 }

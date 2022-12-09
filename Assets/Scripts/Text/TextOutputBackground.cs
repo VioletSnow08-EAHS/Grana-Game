@@ -6,8 +6,7 @@ public class TextOutputBackground : MonoBehaviour
 {
     [SerializeField] private RectTransform RectTransform;
     public GameObject ParentGameObject;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
