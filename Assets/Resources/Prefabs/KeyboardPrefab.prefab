@@ -92,14 +92,14 @@ MonoBehaviour:
   rectTransform: {fileID: 977427952332663284}
   keyPrefab: {fileID: 1510527334887992569, guid: dd32ec8d60f78824ca9ce3b4be9fde02, type: 3}
   backspaceKeyPrefab: {fileID: 1510527334887992569, guid: b1c11dbe40923ec49a4c145a7754fb74, type: 3}
-  widthPercent: 1
-  heightPercent: 0.265
-  bottomOffset: 0.039
+  widthPercent: 0.617
+  heightPercent: 0.196
+  bottomOffset: 0.088
   lines:
   - keys: QWERTYUIOP
   - keys: ASDFGHJKL
   - keys: ZXCVBNM.
   keyColor: {r: 0.1981132, g: 0.1971787, b: 0.1971787, a: 1}
-  keyToLineRatio: 0.646
+  keyToLineRatio: 0.6
   keyXSpacing: 0.055
   TextOutPut: {fileID: 0}

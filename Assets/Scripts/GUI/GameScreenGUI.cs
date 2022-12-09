@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameScreenGUI : MonoBehaviour
 {
-    private GUIManager GameScreenGUIManager = new GUIManager();
+    [SerializeField] private GUIManager GameScreenGUIManager;
     void Start()
     {
         GameScreenGUIManager.GenerateGUICanvas();
@@ -13,5 +13,6 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.GenerateKeyboard();
         GameScreenGUIManager.GenerateTextInputBox(1);
         GameScreenGUIManager.GenerateBackground();
+        GameScreenGUIManager.GeneratePauseButton(1);
     }
 }

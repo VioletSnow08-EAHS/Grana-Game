@@ -10,7 +10,8 @@ public class MainMenuGUI : MonoBehaviour
     [SerializeField] private Vector2 Size;
     [SerializeField] private string TitleText;
 
-    private GUIManager MainMenuGUIManager = new();
+    [Header("GUI")]
+    [SerializeField] private GUIManager MainMenuGUIManager;
     void Start()
     {
         SetUpGUI();
@@ -22,27 +23,8 @@ public class MainMenuGUI : MonoBehaviour
         MainMenuGUIManager.GenerateEventSystem();
         MainMenuGUIManager.GenerateBackgroundCanvas();
         MainMenuGUIManager.GenerateBackground();
-        GenerateTitleText();
-        MainMenuGUIManager.GenerateDailyPuzzleButton();
-
-
+        MainMenuGUIManager.GenerateTitleText(new Vector2(0, 0), Size, TitleText);
+        MainMenuGUIManager.GenerateMenuButton("DPB", "DAILY", new Vector2(0, 100));       //Commented until daily puzzle implementation
+        MainMenuGUIManager.GenerateMenuButton("LVM", "LEVELS", new Vector2(0, -100));
     }
-    public void GenerateTitleText()
-    {
-        GameObject title = new GameObject();
-        title.name = "Title Text";
-        title.AddComponent<TextMeshProUGUI>();
-
-        title.GetComponent<TextMeshProUGUI>().text = TitleText;
-
-        title.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
-
-        Position = new Vector2(GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.x, GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.y * 1.65f);
-        title.transform.localPosition = Position;
-
-        title.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
-
-        MainMenuGUIManager.GenerateTextBoxBackground(title, 1);
-    }
-
 }
