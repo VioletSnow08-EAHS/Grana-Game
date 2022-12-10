@@ -26,7 +26,7 @@ public class GUIManager : MonoBehaviour
         GUICanvas.transform.parent = empty.transform;
     }
 
-private  void StartGame(string word)
+    private void StartGame(string word)
     {
         GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         GameManager.name = $"GameManager - Word:  \"{word}\"";
@@ -36,9 +36,9 @@ private  void StartGame(string word)
         var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
         var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
         GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
-        
+
     }
-    
+
 
     public void GenerateBackgroundCanvas()
     {
@@ -88,10 +88,12 @@ private  void StartGame(string word)
         newTextBoxBackground.transform.SetParent(BackgroundCanvas.transform);
     }
 
-    public void GenerateBackground()
+    public void GenerateBackground(Sprite image)
     {
-        GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Backgrounds/Background-Gray"));
+        GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Background"));
         background.name = "Background";
+
+        /*background.GetComponent<Background>().SetBackgroundImage(image);*/
         background.transform.SetParent(BackgroundCanvas.transform);
         background.transform.SetSiblingIndex(0);
     }
@@ -138,4 +140,5 @@ private  void StartGame(string word)
 
         GenerateTextBoxBackground(title, 1);
     }
+
 }
