@@ -66,3 +66,7 @@ Assets/Scripts/Text.cs.meta
 *.meta
 #But not source file with postfix. which is everything but a folder
 !*.*.meta
+
+Assets/.idea/.idea.Assets.dir/.idea/
+
+Assets/Scripts/GUI/.idea/.idea.GUI.dir/.idea/
