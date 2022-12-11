@@ -30,6 +30,11 @@ public class PauseButton : MonoBehaviour
 
     public void ButtonPressedCallback()
     {
-        Debug.Log("ButtonPressedCallback tripped");
+        RenderPauseMenu();
+    }
+    public void RenderPauseMenu()
+    {
+        GameObject pauseMenu = Instantiate((GameObject)Resources.Load("Prefabs/PauseMenuPrefab"), new Vector3(0, 0, 0), Quaternion.identity);
+        pauseMenu.transform.SetAsLastSibling();
     }
 }

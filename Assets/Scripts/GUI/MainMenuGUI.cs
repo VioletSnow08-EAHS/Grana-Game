@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuGUI : MonoBehaviour
 {
@@ -22,9 +23,9 @@ public class MainMenuGUI : MonoBehaviour
         MainMenuGUIManager.GenerateGUICanvas();
         MainMenuGUIManager.GenerateEventSystem();
         MainMenuGUIManager.GenerateBackgroundCanvas();
-        MainMenuGUIManager.GenerateBackground();
+        MainMenuGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         MainMenuGUIManager.GenerateTitleText(new Vector2(0, 0), Size, TitleText);
-        MainMenuGUIManager.GenerateMenuButton("DPB", "DAILY", new Vector2(0, 100));       //Commented until daily puzzle implementation
+        /*MainMenuGUIManager.GenerateMenuButton("DPB", "DAILY", new Vector2(0, 100));       */ //Commented until daily puzzle implementation
         MainMenuGUIManager.GenerateMenuButton("LVM", "LEVELS", new Vector2(0, -100));
     }
 }

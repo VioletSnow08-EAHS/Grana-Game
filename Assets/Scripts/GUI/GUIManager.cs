@@ -77,7 +77,7 @@ public class GUIManager : MonoBehaviour
         newTextBox.GetComponent<TextInput>().SetCurrentTextBox(newTextBox);
         Keyboard.GetComponent<Keyboard>().TextOutPut = newTextBox;
         newTextBox.transform.SetParent(GUICanvas.transform);
-        GenerateTextBoxBackground(newTextBox, index);
+        GenerateTextBoxBackground(newTextBox, 1);
     }
 
     public void GenerateTextBoxBackground(GameObject newTextBox, int index)
@@ -85,12 +85,14 @@ public class GUIManager : MonoBehaviour
         GameObject newTextBoxBackground = Instantiate((GameObject)Resources.Load("Prefabs/TextOutputBackground"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         newTextBoxBackground.name = $"TextOutputBackground {index}";
         newTextBoxBackground.GetComponent<TextOutputBackground>().ParentGameObject = newTextBox;
+        newTextBoxBackground.GetComponent<TextOutputBackground>().currentOutputBackground = newTextBoxBackground;
+        newTextBoxBackground.GetComponent<TextOutputBackground>().SetImage(index);
         newTextBoxBackground.transform.SetParent(BackgroundCanvas.transform);
     }
 
-    public void GenerateBackground(Sprite image)
+    public void GenerateBackground(/*Sprite image*/)
     {
-        GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Background"));
+        GameObject background = Instantiate((GameObject)Resources.Load("Prefabs/Backgrounds/Background"));
         background.name = "Background";
 
         /*background.GetComponent<Background>().SetBackgroundImage(image);*/
@@ -104,7 +106,7 @@ public class GUIManager : MonoBehaviour
         pauseButton.name = "Pause Button";
         pauseButton.GetComponent<PauseButton>().SetCurrentButton(pauseButton);
         pauseButton.transform.SetParent(GUICanvas.transform);
-        GenerateTextBoxBackground(pauseButton, index);
+        GenerateTextBoxBackground(pauseButton, 0);
     }
 
     public void GenerateMenuButton(string type, string text, Vector2 position)

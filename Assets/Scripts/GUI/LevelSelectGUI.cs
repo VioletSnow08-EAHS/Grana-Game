@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelSelectGUI : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class LevelSelectGUI : MonoBehaviour
         LevelSelectGUIManager.GenerateGUICanvas();
         LevelSelectGUIManager.GenerateBackgroundCanvas();
         LevelSelectGUIManager.GenerateEventSystem();
-        LevelSelectGUIManager.GenerateBackground();
+        LevelSelectGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         LevelSelectGUIManager.GeneratePauseButton(1);
-        LevelSelectGUIManager.GenerateTitleText(new Vector2(0, 0), new Vector2(0, 0), "Levels");
+        LevelSelectGUIManager.GenerateTitleText(new Vector2(0, 0), new Vector2(550, 175), "Levels");
     }
 
 }

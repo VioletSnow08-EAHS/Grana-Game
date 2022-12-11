@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -66,20 +67,22 @@ public class MenuButtonManager : MonoBehaviour
         switch (type)
         {
             case "DPB":
-                DailyPuzzleButtonPressed();
+                RedirectToScene("GameScreen");
                 break;
             case "LVL":
                 break;
             case "LVM":
+                RedirectToScene("LevelSelect");
                 break;
             case "PSE":
                 break;
         }
     }
 
-    public void DailyPuzzleButtonPressed()
+    public void RedirectToScene(string scene)
     {
-        SceneManager.LoadScene("GameScreen");
+        SceneManager.LoadScene(scene);
     }
+
 
 }
