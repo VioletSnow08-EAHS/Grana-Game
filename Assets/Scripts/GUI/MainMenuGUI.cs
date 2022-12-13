@@ -9,7 +9,7 @@ public class MainMenuGUI : MonoBehaviour
     [Header("Title Settings")]
     [SerializeField] private Vector2 Position;
     [SerializeField] private Vector2 Size;
-    [SerializeField] private string TitleText;
+    [SerializeField] private Sprite TitleImage;
 
     [Header("GUI")]
     [SerializeField] private GUIManager MainMenuGUIManager;
@@ -24,7 +24,7 @@ public class MainMenuGUI : MonoBehaviour
         MainMenuGUIManager.GenerateEventSystem();
         MainMenuGUIManager.GenerateBackgroundCanvas();
         MainMenuGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
-        MainMenuGUIManager.GenerateTitleText(new Vector2(0, 0), Size, TitleText);
+        MainMenuGUIManager.GenerateTitleText(new Vector2(0, 0), TitleImage);
         /*MainMenuGUIManager.GenerateMenuButton("DPB", "DAILY", new Vector2(0, 100));       */ //Commented until daily puzzle implementation
         MainMenuGUIManager.GenerateMenuButton("LVM", "LEVELS", new Vector2(0, -100));
     }

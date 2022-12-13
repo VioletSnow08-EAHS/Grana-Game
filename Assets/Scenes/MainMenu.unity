@@ -254,7 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0}
   Size: {x: 725, y: 175}
-  TitleText: GRANA
+  TitleImage: {fileID: 21300000, guid: ac5dd64a10d2e5044ab0b410975de59f, type: 3}
   MainMenuGUIManager: {fileID: 1523354067}
 --- !u!114 &1523354067
 MonoBehaviour:

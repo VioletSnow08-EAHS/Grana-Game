@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class LevelSelectGUI : MonoBehaviour
 {
     [SerializeField] private GUIManager LevelSelectGUIManager;
+    [SerializeField] private Sprite TitleImage;
 
+    private List<Course> courses = new List<Course>();
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class LevelSelectGUI : MonoBehaviour
         LevelSelectGUIManager.GenerateEventSystem();
         LevelSelectGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         LevelSelectGUIManager.GeneratePauseButton(1);
-        LevelSelectGUIManager.GenerateTitleText(new Vector2(0, 0), new Vector2(550, 175), "Levels");
+        LevelSelectGUIManager.GenerateTitleText(new Vector2(0, 0), TitleImage);
     }
 
 }

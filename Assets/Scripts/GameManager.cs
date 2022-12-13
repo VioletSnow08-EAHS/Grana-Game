@@ -12,32 +12,32 @@ public class GameManager : MonoBehaviour
     [SerializeField] public string gameWord;
     [SerializeField] private List<string> anagramsList;
     [SerializeField] private Dictionary<char, int> pointValues;
-    
+
     [Header("Live Data")]
     [SerializeField] private int totalPoints;
     [SerializeField] private List<string> wordsUsed;
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
         InitializeGame();
         //InitializeTimer() or smth like that
-        
+
         //word that isn't an anagram: loop
         submitWord("loop");
-        
+
         //word that is an anagram: faulted
         submitWord("faulted");
-        
+
         //word has already been used
         submitWord("faulted");
     }
-    
+
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //initialize all variables and signal the start of the course with a selected word
@@ -54,12 +54,12 @@ public class GameManager : MonoBehaviour
             {'j', 8}, {'x', 8},
             {'q', 10}, {'z', 10},
         };
-        
+
         Debug.Log($"Game has begun with the word: {gameWord}");
-        
-        
+
+
     }
-    
+
     //check if the inputted word Can or Cannot be submitted and adjust the point values accordingly.
     public void submitWord(string word)
     {
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         if (anagramsList.Contains(word) && !wordsUsed.Contains(word) /*|| check if word is in scrabble dictionary*/)
         {
-            
+
             //true -> calculate points earned and increase totalPoints
             var pointsReceived = 0;
             wordsUsed.Add(word);
@@ -87,21 +87,21 @@ public class GameManager : MonoBehaviour
             Debug.Log($"\"{word}\" is not a valid word/has already been used.");
         }
     }
-    
+
     //Sets the word for this game. Must be called separately so far (can you give the class/script a parameter upon instantiation?)
-   public void SetWord(string word)
+    public void SetWord(string word)
     {
         gameWord = word;
         Debug.Log($"gameWord has been updated to: \"{word}\".");
     }
 
-   //load in the anagrams for the current word
-   public void SetAnagramsList(List<string> anagrams)
-   {
-       this.anagramsList = anagrams;
-       foreach (string word in anagrams)
-       {
-           Debug.Log($"added \"{word}\"");
-       }
-   }
+    //load in the anagrams for the current word
+    public void SetAnagramsList(List<string> anagrams)
+    {
+        this.anagramsList = anagrams;
+        foreach (string word in anagrams)
+        {
+            Debug.Log($"added \"{word}\"");
+        }
+    }
 }

@@ -32,13 +32,13 @@ public class GUIManager : MonoBehaviour
         GameManager.name = $"GameManager - Word:  \"{word}\"";
         GameManager.GetComponent<GameManager>().SetWord(word);
 
+
         //read JSON file of anagramsList and send it to GameManager
         var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
         var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
         GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
 
     }
-
 
     public void GenerateBackgroundCanvas()
     {
@@ -120,27 +120,18 @@ public class GUIManager : MonoBehaviour
         newButton.transform.SetParent(GUICanvas.transform);
     }
 
-    public void GenerateTitleText(Vector2 Position, Vector2 Size, string TitleText)
+    public void GenerateTitleText(Vector2 Position, Sprite TitleImage)
     {
-        GameObject title = new GameObject();
-        title.name = "Title Text";
-        title.AddComponent<TextMeshProUGUI>();
+        Position = new Vector2(GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.x, GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.y * 1.6f);
 
-        title.GetComponent<TextMeshProUGUI>().text = TitleText;
+        GameObject title = Instantiate((GameObject)Resources.Load("Prefabs/TitlePrefab"), Position, Quaternion.identity);
+        title.name = "Title Image";
 
-        title.GetComponent<TextMeshProUGUI>().fontSize = 150;
-        title.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+        title.GetComponent<Image>().sprite = TitleImage;
 
-        title.GetComponent<RectTransform>().sizeDelta = Size;
-
-        title.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
-
-        Position = new Vector2(GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.x, GameObject.Find("GUICanvas").GetComponent<RectTransform>().localPosition.y * 1.65f);
         title.transform.localPosition = Position;
 
         title.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
-
-        GenerateTextBoxBackground(title, 1);
     }
 
 }

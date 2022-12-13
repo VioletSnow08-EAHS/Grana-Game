@@ -15,7 +15,7 @@ public class MenuButtonManager : MonoBehaviour
     [SerializeField] private RectTransform currentRectTransform;
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
 
-    private Button currentButton;
+    [SerializeField] private Button currentButton;
 
     void Start()
     {
@@ -73,8 +73,6 @@ public class MenuButtonManager : MonoBehaviour
                 break;
             case "LVM":
                 RedirectToScene("LevelSelect");
-                break;
-            case "PSE":
                 break;
         }
     }

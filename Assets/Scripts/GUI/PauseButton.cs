@@ -35,6 +35,8 @@ public class PauseButton : MonoBehaviour
     public void RenderPauseMenu()
     {
         GameObject pauseMenu = Instantiate((GameObject)Resources.Load("Prefabs/PauseMenuPrefab"), new Vector3(0, 0, 0), Quaternion.identity);
+        pauseMenu.name = "PauseMenu";
+
         pauseMenu.transform.SetAsLastSibling();
     }
 }
