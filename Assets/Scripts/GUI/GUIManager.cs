@@ -134,4 +134,18 @@ public class GUIManager : MonoBehaviour
         title.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
     }
 
+    public void GenerateTextBox(Vector2 position, string name, Vector2 size, int fontSize, string text)
+    {
+        GameObject newTextBox = new GameObject();
+        newTextBox.AddComponent<TextMeshProUGUI>();
+        newTextBox.transform.SetParent(GUICanvas.transform);
+
+        newTextBox.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+        newTextBox.GetComponent<TextMeshProUGUI>().text = text;
+        newTextBox.GetComponent<TextMeshProUGUI>().fontSize = fontSize;
+        newTextBox.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
+        newTextBox.transform.localPosition = position;
+        newTextBox.name = name;
+        newTextBox.GetComponent<RectTransform>().sizeDelta = size;
+    }
 }
