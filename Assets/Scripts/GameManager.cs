@@ -60,6 +60,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void DisplayGameWord()
+    {
+         
+    }
     //check if the inputted word Can or Cannot be submitted and adjust the point values accordingly.
     public void submitWord(string word)
     {
