@@ -26,7 +26,7 @@ public class GUIManager : MonoBehaviour
         GUICanvas.transform.parent = empty.transform;
     }
 
-    private void StartGame(string word)
+    public void StartGame(string word)
     {
         GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         GameManager.name = $"GameManager - Word:  \"{word}\"";
@@ -100,7 +100,7 @@ public class GUIManager : MonoBehaviour
         background.transform.SetSiblingIndex(0);
     }
 
-    public void GeneratePauseButton(int index)
+    public void GeneratePauseButton()
     {
         GameObject pauseButton = Instantiate((GameObject)Resources.Load("Prefabs/PauseButtonPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         pauseButton.name = "Pause Button";

@@ -74,6 +74,9 @@ public class MenuButtonManager : MonoBehaviour
             case "LVM":
                 RedirectToScene("LevelSelect");
                 break;
+            case "TUT":
+                RedirectToScene("TutorialScreen");
+                break;
         }
     }
 
