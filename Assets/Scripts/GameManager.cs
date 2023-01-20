@@ -21,15 +21,11 @@ public class GameManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         InitializeGame();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        yield return new WaitForEndOfFrame();
+        scoreBox = GameObject.Find("ScoreBox").GetComponent<TextMeshProUGUI>();
     }
 
     //initialize all variables and signal the start of the course with a selected word
@@ -74,6 +70,7 @@ public class GameManager : MonoBehaviour
             }
 
             totalPoints += pointsReceived;
+            scoreBox.GetComponent<TextMeshProUGUI>().text = $"Score: {totalPoints}";
             Debug.Log($"Points received for word \"{word}\": {pointsReceived} points.");
             Debug.Log($"Total points now: {totalPoints}");
             return true;
