@@ -71,9 +71,6 @@ public class Keyboard : MonoBehaviour
 
         rectTransform.position = position;
     }
-
-    private string text = "";
-
     private void CreateKeys()
     {
         for (int i = 0; i < lines.Length; i++)
@@ -160,32 +157,32 @@ public class Keyboard : MonoBehaviour
 
     public string GetTextInput()
     {
-        return text;
+        return TextOutPut.GetComponent<TextMeshProUGUI>().text;
     }
 
     private void BackspacePressedCallback()
     {
         Debug.Log("Backspace Pressed");
-        text = text.Remove(text.Length - 1, 1);
+        TextOutPut.GetComponent<TextMeshProUGUI>().text = TextOutPut.GetComponent<TextMeshProUGUI>().text.Remove(TextOutPut.GetComponent<TextMeshProUGUI>().text.Length - 1, 1);
         if (TextOutPut != null)
         {
-            TextOutPut.GetComponent<TextMeshProUGUI>().text = text;
+            TextOutPut.GetComponent<TextMeshProUGUI>().text = TextOutPut.GetComponent<TextMeshProUGUI>().text;
         }
-        Debug.Log(text);
+        Debug.Log(TextOutPut.GetComponent<TextMeshProUGUI>().text);
     }
 
     private void KeyPressedCallback(char key)
     {
         Debug.Log($"Key Pressed : {key}");
-        if (text.Length <= TextOutPut.GetComponent<RectTransform>().sizeDelta.x / TextOutPut.GetComponent<TextMeshProUGUI>().fontSize / 1.25f) // edit here
+        if (TextOutPut.GetComponent<TextMeshProUGUI>().text.Length <= TextOutPut.GetComponent<RectTransform>().sizeDelta.x / TextOutPut.GetComponent<TextMeshProUGUI>().fontSize / 1.25f) // edit here
         {
-            text += key;
+            TextOutPut.GetComponent<TextMeshProUGUI>().text += key;
             if (TextOutPut != null)
             {
-                TextOutPut.GetComponent<TextMeshProUGUI>().text = text;
+                TextOutPut.GetComponent<TextMeshProUGUI>().text = TextOutPut.GetComponent<TextMeshProUGUI>().text;
             }
         }
-        Debug.Log(text);
+        Debug.Log(TextOutPut.GetComponent<TextMeshProUGUI>().text);
     }
 }
 

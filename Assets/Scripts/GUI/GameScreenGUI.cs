@@ -18,5 +18,6 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.GeneratePauseButton();
         GameScreenGUIManager.StartGame("TESTING");
         GameScreenGUIManager.GenerateTextBox(new Vector2(0, 200), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, "TESTING");
+        GameScreenGUIManager.GenerateSubmitButton();
     }
 }

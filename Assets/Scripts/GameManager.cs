@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("Live Data")]
     [SerializeField] private int totalPoints;
     [SerializeField] private List<string> wordsUsed;
+    [SerializeField] private TextMeshProUGUI scoreBox;
 
 
     // Start is called before the first frame update
@@ -52,17 +54,17 @@ public class GameManager : MonoBehaviour
 
     public void DisplayGameWord()
     {
-         
+
     }
     //check if the inputted word Can or Cannot be submitted and adjust the point values accordingly.
-    public void submitWord(string word)
+    public bool submitWord(string word)
     {
         Debug.Log($"attempting to use word: {word}");
         Debug.Log($"Is {word} an anagram?: {isAnagram(word)}");
 
         if (isAnagram(word) && !wordsUsed.Contains(word)) //later, check if its an actual word in the dictionary
         {
-
+            word = word.ToLower();
             //true -> calculate points earned and increase totalPoints
             int pointsReceived = 0;
             wordsUsed.Add(word);
@@ -74,11 +76,13 @@ public class GameManager : MonoBehaviour
             totalPoints += pointsReceived;
             Debug.Log($"Points received for word \"{word}\": {pointsReceived} points.");
             Debug.Log($"Total points now: {totalPoints}");
+            return true;
         }
         else
         {
             //false, output error msg --> need to define specific errors later
             Debug.Log($"\"{word}\" is not a valid word/has already been used.");
+            return false;
         }
     }
 
@@ -88,23 +92,26 @@ public class GameManager : MonoBehaviour
         var inputArray = inputWord.ToCharArray().ToList();
         var baseArray = gameWord.ToCharArray().ToList();
         int matches = 0;
-    
-        baseArray.Sort((char a, char b) => {
+
+        baseArray.Sort((char a, char b) =>
+        {
             return b.CompareTo(a);
         });
-    
-        foreach(char character in inputArray) {
-            if (baseArray.IndexOf(character) >= 0) {
+
+        foreach (char character in inputArray)
+        {
+            if (baseArray.IndexOf(character) >= 0)
+            {
                 matches++;
                 baseArray.Remove(character);
             }
         }
         //sees if the number of character matches is equivalent to all the characters in the inputWord
-        return matches == inputWord.Length;    
+        return matches == inputWord.Length;
     }
-    
-    
-    
+
+
+
     //Sets the word for this game. Must be called separately so far (can you give the class/script a parameter upon instantiation?)
     public void SetWord(string word)
     {

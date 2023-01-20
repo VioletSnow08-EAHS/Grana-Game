@@ -29,7 +29,7 @@ public class GUIManager : MonoBehaviour
     public void StartGame(string word)
     {
         GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
-        GameManager.name = $"GameManager - Word:  \"{word}\"";
+        GameManager.name = $"GameManager";
         GameManager.GetComponent<GameManager>().SetWord(word);
 
 
@@ -73,7 +73,7 @@ public class GUIManager : MonoBehaviour
     public void GenerateTextInputBox(int index)
     {
         GameObject newTextBox = Instantiate((GameObject)Resources.Load("Prefabs/TextOutputPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
-        newTextBox.name = $"TextOutput {index}";
+        newTextBox.name = $"TextOutput";
         newTextBox.GetComponent<TextInput>().SetCurrentTextBox(newTextBox);
         Keyboard.GetComponent<Keyboard>().TextOutPut = newTextBox;
         newTextBox.transform.SetParent(GUICanvas.transform);
@@ -147,5 +147,11 @@ public class GUIManager : MonoBehaviour
         newTextBox.transform.localPosition = position;
         newTextBox.name = name;
         newTextBox.GetComponent<RectTransform>().sizeDelta = size;
+    }
+
+    public void GenerateSubmitButton()
+    {
+        GameObject newSubmitButton = Instantiate((GameObject)Resources.Load("Prefabs/SubmitButton"), new Vector2(Screen.width / 2, Screen.height * 0.4f), Quaternion.identity);
+        newSubmitButton.transform.SetParent(GUICanvas.transform);
     }
 }
