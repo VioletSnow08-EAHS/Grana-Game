@@ -131,7 +131,7 @@ public class GUIManager : MonoBehaviour
 
         title.transform.localPosition = Position;
 
-        title.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
+        title.transform.SetParent(GUICanvas.transform);
     }
 
     public void GenerateTextBox(Vector2 position, string name, Vector2 size, int fontSize, string text)
