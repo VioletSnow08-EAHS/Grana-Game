@@ -9,6 +9,8 @@ using UnityEngine;
 public class TutorialPageInit : MonoBehaviour
 {
     private string pgText = File.ReadAllText("./Assets/Resources/tutorialPGs.json");
+    private GameObject PageHolder;
+    
     /*private List<string> pages = JsonConvert.DeserializeObject<List<string>>(pgText);*/
 
     // Start is called before the first frame update
@@ -24,12 +26,17 @@ public class TutorialPageInit : MonoBehaviour
         var spacingFactor = .5f;
         var pgNum = 0;
 
-        var PageHolder = new GameObject();
-        PageHolder.name = "PageHolder";
-        PageHolder.transform.SetParent(GameObject.Find("GUICanvas").transform);
-
+        PageHolderInit();
+        
+        GameObject swipeArea = new GameObject();
+        swipeArea.AddComponent<RectTransform>();
+        swipeArea.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
+        swipeArea.transform.SetParent(PageHolder.transform, true);
+        swipeArea.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        
         foreach (var page in pages)
         {
+
             var textPage = new GameObject();
             textPage.name = $"TextPage {pgNum}";
             textPage.AddComponent<TextMeshProUGUI>();
@@ -45,6 +52,14 @@ public class TutorialPageInit : MonoBehaviour
             spacingFactor++;
             pgNum++;
         }
+    }
+
+    private void PageHolderInit()
+    {
+        PageHolder = new GameObject();
+        PageHolder.name = "PageHolder";
+        PageHolder.AddComponent<PageSwiper>();
+        PageHolder.transform.SetParent(GameObject.Find("GUICanvas").transform);
     }
 
 }
