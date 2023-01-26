@@ -26,20 +26,6 @@ public class GUIManager : MonoBehaviour
         GUICanvas.transform.parent = empty.transform;
     }
 
-    public void StartGame(string word)
-    {
-        GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
-        GameManager.name = $"GameManager";
-        GameManager.GetComponent<GameManager>().SetWord(word);
-
-
-        //read JSON file of anagramsList and send it to GameManager
-        var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
-        var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
-        GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
-
-    }
-
     public void GenerateBackgroundCanvas()
     {
         GameObject empty = new GameObject();
@@ -153,5 +139,28 @@ public class GUIManager : MonoBehaviour
     {
         GameObject newSubmitButton = Instantiate((GameObject)Resources.Load("Prefabs/SubmitButton"), new Vector2(Screen.width / 2, Screen.height * 0.4f), Quaternion.identity);
         newSubmitButton.transform.SetParent(GUICanvas.transform);
+    }
+
+    public void GenerateTimer(float time)
+    {
+        GameObject timer = new GameObject();
+        timer.name = "GameTimer";
+        timer.AddComponent<GameTimer>();
+        timer.GetComponent<GameTimer>().gameTime = time; //hold on
+    }
+    
+    public void StartGame(string word)
+    {
+        GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameManager.name = $"GameManager";
+        GameManager.GetComponent<GameManager>().SetWord(word);
+
+        //Unnecessary; we already have a way of checking
+        /*//read JSON file of anagramsList and send it to GameManager
+        var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
+        var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
+        GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
+        */
+
     }
 }

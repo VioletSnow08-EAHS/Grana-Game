@@ -20,5 +20,6 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.GenerateTextBox(new Vector2(0, 200), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, "TESTING");
         GameScreenGUIManager.GenerateSubmitButton();
         GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ");
+        GameScreenGUIManager.GenerateTimer(60);
     }
 }
