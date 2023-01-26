@@ -28,11 +28,11 @@ public class TutorialPageInit : MonoBehaviour
 
         PageHolderInit();
         
-        GameObject swipeArea = new GameObject();
+        /*GameObject swipeArea = new GameObject();
         swipeArea.AddComponent<RectTransform>();
         swipeArea.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         swipeArea.transform.SetParent(PageHolder.transform, true);
-        swipeArea.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        swipeArea.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);*/
         
         foreach (var page in pages)
         {
@@ -43,8 +43,9 @@ public class TutorialPageInit : MonoBehaviour
             textPage.GetComponent<TextMeshProUGUI>().text = pages[pgNum];
             textPage.GetComponent<TextMeshProUGUI>().fontSize = 55;
             textPage.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
-            textPage.GetComponent<RectTransform>().sizeDelta = new Vector3(Screen.width * .65f, Screen.height * .45f, 0);
-            textPage.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width * spacingFactor, Screen.height / 2, 0);
+            textPage.GetComponent<TextMeshProUGUI>().margin = new Vector4(70, (int)(Screen.height * 0) /*temp*/ , 70, 70);
+            textPage.GetComponent<RectTransform>().sizeDelta = new Vector3(Screen.width, Screen.height * (float)0.90, 0);
+            textPage.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width * spacingFactor, Screen.height / (float)2.5, 0);
 
             textPage.transform.SetParent(PageHolder.transform, false);
             textPage.transform.SetAsLastSibling();
@@ -58,7 +59,8 @@ public class TutorialPageInit : MonoBehaviour
     {
         PageHolder = new GameObject();
         PageHolder.name = "PageHolder";
-        PageHolder.AddComponent<PageSwiper>();
+        PageSwiper swiper = PageHolder.AddComponent<PageSwiper>();
+        swiper.totalPages = 4; //I WILL FIX THIS SO IT'S DYNAMIC EVENTUALLY
         PageHolder.transform.SetParent(GameObject.Find("GUICanvas").transform);
     }
 
