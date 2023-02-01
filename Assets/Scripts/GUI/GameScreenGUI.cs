@@ -20,6 +20,7 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.StartGame("TESTING");
         GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width / 2, Screen.height * .6f), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, "TESTING", TMPro.TextAlignmentOptions.Center);
         GameScreenGUIManager.GenerateSubmitButton();
-        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .4f, Screen.height * .9f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ", TMPro.TextAlignmentOptions.MidlineLeft);
+        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ");
+        GameScreenGUIManager.GenerateTimer(60);
     }
 }

@@ -27,26 +27,12 @@ public class GUIManager : MonoBehaviour
         GUICanvas.transform.parent = empty.transform;
     }
 
-    public void StartGame(string word)
-    {
-        GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
-        GameManager.name = $"GameManager";
-        GameManager.GetComponent<GameManager>().SetWord(word);
-
-
-        //read JSON file of anagramsList and send it to GameManager
-        var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
-        var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
-        GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
-
-    }
-
     public void GenerateSafeArea()
     {
         GameObject safeArea = new GameObject();
         safeArea.name = "SafeArea";
-
         safeArea.AddComponent<SafeArea>();
+
         safeArea.transform.SetParent(GUICanvas.transform);
         SafeArea = safeArea;
     }
@@ -167,8 +153,26 @@ public class GUIManager : MonoBehaviour
         newSubmitButton.transform.SetParent(SafeArea.transform);
     }
 
-    public void GenerateGameDropdown()
+    public void GenerateTimer(float time)
     {
-        /*GameObject wordDropdown = Instantiate((GameObject)Resources.Load("Prefabs/DropdownPrefab"), new Vector3(Screen.width / 2, ))*/
+        GameObject timer = new GameObject();
+        timer.name = "GameTimer";
+        timer.AddComponent<GameTimer>();
+        timer.GetComponent<GameTimer>().gameTime = time; //hold on
+    }
+    
+    public void StartGame(string word)
+    {
+        GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameManager.name = $"GameManager";
+        GameManager.GetComponent<GameManager>().SetWord(word);
+
+        //Unnecessary; we already have a way of checking
+        /*//read JSON file of anagramsList and send it to GameManager
+        var stream = File.ReadAllText("./Assets/Resources/anagramsDefault.json");
+        var anagramsList = JsonConvert.DeserializeObject<List<string>>(stream);
+        GameManager.GetComponent<GameManager>().SetAnagramsList(anagramsList);
+        */
+
     }
 }
