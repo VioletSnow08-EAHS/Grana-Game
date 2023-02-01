@@ -10,6 +10,7 @@ public class GameScreenGUI : MonoBehaviour
     void Start()
     {
         GameScreenGUIManager.GenerateGUICanvas();
+        GameScreenGUIManager.GenerateSafeArea();
         GameScreenGUIManager.GenerateBackgroundCanvas();
         GameScreenGUIManager.GenerateEventSystem();
         GameScreenGUIManager.GenerateKeyboard();
@@ -17,8 +18,8 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         GameScreenGUIManager.GeneratePauseButton();
         GameScreenGUIManager.StartGame("TESTING");
-        GameScreenGUIManager.GenerateTextBox(new Vector2(0, 200), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, "TESTING");
+        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width / 2, Screen.height * .6f), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, "TESTING", TMPro.TextAlignmentOptions.Center);
         GameScreenGUIManager.GenerateSubmitButton();
-        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ");
+        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .4f, Screen.height * .9f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ", TMPro.TextAlignmentOptions.MidlineLeft);
     }
 }

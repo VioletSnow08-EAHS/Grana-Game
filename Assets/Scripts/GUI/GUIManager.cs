@@ -16,6 +16,7 @@ public class GUIManager : MonoBehaviour
     private GameObject BackgroundCanvas;
     private GameObject Keyboard;
     private GameObject GameManager;
+    private GameObject SafeArea;
 
     public void GenerateGUICanvas()
     {
@@ -40,6 +41,16 @@ public class GUIManager : MonoBehaviour
 
     }
 
+    public void GenerateSafeArea()
+    {
+        GameObject safeArea = new GameObject();
+        safeArea.name = "SafeArea";
+
+        safeArea.AddComponent<SafeArea>();
+        safeArea.transform.SetParent(GUICanvas.transform);
+        SafeArea = safeArea;
+    }
+
     public void GenerateBackgroundCanvas()
     {
         GameObject empty = new GameObject();
@@ -52,6 +63,7 @@ public class GUIManager : MonoBehaviour
         empty.GetComponent<RectTransform>().sizeDelta = GUICanvas.GetComponent<RectTransform>().sizeDelta;
 
         empty.transform.SetParent(GUICanvas.transform);
+        empty.transform.SetAsFirstSibling();
         BackgroundCanvas = empty;
     }
 
@@ -67,7 +79,7 @@ public class GUIManager : MonoBehaviour
         Keyboard = Instantiate((GameObject)Resources.Load("Prefabs/KeyboardPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
 
         Keyboard.name = "Keyboard";
-        Keyboard.transform.SetParent(GUICanvas.transform);
+        Keyboard.transform.SetParent(SafeArea.transform);
     }
 
     public void GenerateTextInputBox(int index)
@@ -76,7 +88,7 @@ public class GUIManager : MonoBehaviour
         newTextBox.name = $"TextOutput";
         newTextBox.GetComponent<TextInput>().SetCurrentTextBox(newTextBox);
         Keyboard.GetComponent<Keyboard>().TextOutPut = newTextBox;
-        newTextBox.transform.SetParent(GUICanvas.transform);
+        newTextBox.transform.SetParent(SafeArea.transform);
         GenerateTextBoxBackground(newTextBox, 1);
     }
 
@@ -105,7 +117,7 @@ public class GUIManager : MonoBehaviour
         GameObject pauseButton = Instantiate((GameObject)Resources.Load("Prefabs/PauseButtonPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         pauseButton.name = "Pause Button";
         pauseButton.GetComponent<PauseButton>().SetCurrentButton(pauseButton);
-        pauseButton.transform.SetParent(GUICanvas.transform);
+        pauseButton.transform.SetParent(SafeArea.transform);
         GenerateTextBoxBackground(pauseButton, 0);
     }
 
@@ -117,7 +129,7 @@ public class GUIManager : MonoBehaviour
         newButton.GetComponent<MenuButtonManager>().SetType(type);
         /*        newButton.GetComponent<MenuButtonManager>().SetPosition(position);*/
         newButton.GetComponent<MenuButtonManager>().SetButtonText(text);
-        newButton.transform.SetParent(GUICanvas.transform);
+        newButton.transform.SetParent(SafeArea.transform);
     }
 
     public void GenerateTitleText(Vector2 Position, Sprite TitleImage)
@@ -131,10 +143,10 @@ public class GUIManager : MonoBehaviour
 
         title.transform.localPosition = Position;
 
-        title.transform.SetParent(GUICanvas.transform);
+        title.transform.SetParent(SafeArea.transform);
     }
 
-    public void GenerateTextBox(Vector2 position, string name, Vector2 size, int fontSize, string text)
+    public void GenerateTextBox(Vector2 position, string name, Vector2 size, int fontSize, string text, TextAlignmentOptions textAlignment)
     {
         GameObject newTextBox = new GameObject();
         newTextBox.AddComponent<TextMeshProUGUI>();
@@ -143,8 +155,8 @@ public class GUIManager : MonoBehaviour
         newTextBox.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
         newTextBox.GetComponent<TextMeshProUGUI>().text = text;
         newTextBox.GetComponent<TextMeshProUGUI>().fontSize = fontSize;
-        newTextBox.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
-        newTextBox.transform.localPosition = position;
+        newTextBox.GetComponent<TextMeshProUGUI>().alignment = textAlignment;
+        newTextBox.transform.position = position;
         newTextBox.name = name;
         newTextBox.GetComponent<RectTransform>().sizeDelta = size;
     }
@@ -152,6 +164,11 @@ public class GUIManager : MonoBehaviour
     public void GenerateSubmitButton()
     {
         GameObject newSubmitButton = Instantiate((GameObject)Resources.Load("Prefabs/SubmitButton"), new Vector2(Screen.width / 2, Screen.height * 0.4f), Quaternion.identity);
-        newSubmitButton.transform.SetParent(GUICanvas.transform);
+        newSubmitButton.transform.SetParent(SafeArea.transform);
+    }
+
+    public void GenerateGameDropdown()
+    {
+        /*GameObject wordDropdown = Instantiate((GameObject)Resources.Load("Prefabs/DropdownPrefab"), new Vector3(Screen.width / 2, ))*/
     }
 }
