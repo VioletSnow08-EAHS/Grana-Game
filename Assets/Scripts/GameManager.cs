@@ -44,14 +44,12 @@ public class GameManager : MonoBehaviour
         };
 
         Debug.Log($"Game has begun with the word: {gameWord}");
+        wordsUsed.Add(gameWord);
 
 
     }
 
-    public void DisplayGameWord()
-    {
-
-    }
+  
     //check if the inputted word Can or Cannot be submitted and adjust the point values accordingly.
     public bool submitWord(string word)
     {
