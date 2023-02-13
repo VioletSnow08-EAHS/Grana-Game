@@ -6,6 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -144,9 +145,16 @@ public class GUIManager : MonoBehaviour
     public void GenerateTimer(float time)
     {
         GameObject timer = new GameObject();
+        timer.transform.SetParent(GUICanvas.transform);
         timer.name = "GameTimer";
         timer.AddComponent<GameTimer>();
-        timer.GetComponent<GameTimer>().gameTime = time; //hold on
+        timer.AddComponent<Image>();
+        timer.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
+        timer.GetComponent<GameTimer>().timer = timer;
+        timer.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height * 0.02f);
+        timer.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width * -0.5f, Screen.height * 0.45f, 0);
+        timer.GetComponent<GameTimer>().gameTime = time;
+
     }
     
     public void StartGame(string word)
