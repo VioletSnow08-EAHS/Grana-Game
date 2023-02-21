@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -73,12 +74,18 @@ public class GameManager : MonoBehaviour
             scoreBox.GetComponent<TextMeshProUGUI>().text = $"Score: {totalPoints}";
             Debug.Log($"Points received for word \"{word}\": {pointsReceived} points.");
             Debug.Log($"Total points now: {totalPoints}");
+
+            DisplayAlert(word + "Success", $"+{pointsReceived} for {word}", 1f);
+            
             return true;
         }
         else
         {
             //false, output error msg --> need to define specific errors later
             Debug.Log($"\"{word}\" is not a valid word/has already been used.");
+            
+            DisplayAlert(word + "Fail", $"{word} is invalid.", 2);
+            
             return false;
         }
     }
@@ -116,13 +123,15 @@ public class GameManager : MonoBehaviour
         Debug.Log($"gameWord has been updated to: \"{word}\".");
     }
 
-    //load in the anagrams for the current word
-    public void SetAnagramsList(List<string> anagrams)
+
+    public void DisplayAlert(String name, String text, float duration)
     {
-        this.anagramsList = anagrams;
-        foreach (string word in anagrams)
-        {
-            Debug.Log($"added \"{word}\"");
-        }
+        Vector2 size = new Vector2(Screen.width * 0.8f, Screen.height * 0.1f);
+        Vector2 position = new Vector2(0, Screen.height * 0.20f);
+        int fontSize = 60;
+        GameObject.Find("GUIManager").GetComponent<GUIManager>().GenerateTextBox(position, name, size, fontSize, text);
+        GameObject.Find(name).AddComponent<GameAlert>();
+        GameObject.Find(name).GetComponent<GameAlert>().thisAlert = GameObject.Find(name);
+        GameObject.Find(name).GetComponent<GameAlert>().duration = duration;
     }
 }

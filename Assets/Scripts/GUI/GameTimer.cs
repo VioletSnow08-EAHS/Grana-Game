@@ -31,11 +31,26 @@ public class GameTimer : MonoBehaviour
             
             //update color
             timer.GetComponent<Image>().color = Color.Lerp(endColor, startColor, gameTime / duration);
+            
             //update size
             float width = gameTime / this.duration * Screen.width;
             timer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, Screen.height * 0.02f);
+            
+            
+            
             yield return null;
         }
+
+        if (gameTime <= 0)
+        {
+            Debug.Log("Time's up!");
+            OnTimerEnd();
+        }
+        
+    }
+
+    private void OnTimerEnd()
+    {
         
     }
     
