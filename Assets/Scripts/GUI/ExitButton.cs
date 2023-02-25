@@ -24,6 +24,9 @@ public class ExitButton : MonoBehaviour
     private void ButtonPressedCallback()
     {
         Debug.Log("Exit Button Pressed");
+        GameTimer gameTimer = GameObject.Find("GameTimer").GetComponent<GameTimer>();
+        gameTimer.isPaused = false;
+        gameTimer.StartCoroutine(gameTimer.UpdateColorCR());
         Destroy(ParentGameObject, 0);
     }
 

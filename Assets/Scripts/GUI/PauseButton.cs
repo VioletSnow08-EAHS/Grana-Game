@@ -30,6 +30,7 @@ public class PauseButton : MonoBehaviour
 
     public void ButtonPressedCallback()
     {
+        GameObject.Find("GameTimer").GetComponent<GameTimer>().isPaused = true;
         RenderPauseMenu();
     }
     public void RenderPauseMenu()
