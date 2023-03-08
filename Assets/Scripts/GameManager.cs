@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     //initialize unity details
     [Header(" Game Details ")]
     [SerializeField] public string gameWord;
+    [SerializeField] public int gameWordIndex;
     [SerializeField] private List<string> anagramsList; //might not be necessary;  we can just check if the inputWord is an anagram of the base word -- also check if its a real word
     [SerializeField] private Dictionary<char, int> pointValues;
 
@@ -49,18 +50,18 @@ public class GameManager : MonoBehaviour
 
     }
 
-  
+
     //check if the inputted word Can or Cannot be submitted and adjust the point values accordingly.
     public bool submitWord(string word)
     {
         Debug.Log($"attempting to use word: {word}");
         Debug.Log($"Is {word} an anagram?: {isAnagram(word)}");
-        
+
         Debug.Log($"Is {word} in wordsUsed?: {wordsUsed.Contains(word)}");
 
         if (isAnagram(word) && !wordsUsed.Contains(word)) //later, check if its an actual word in the dictionary
         {
-            
+
             //true -> calculate points earned and increase totalPoints
             int pointsReceived = 0;
             wordsUsed.Add(word);

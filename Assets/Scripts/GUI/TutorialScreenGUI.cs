@@ -13,6 +13,7 @@ public class TutorialScreenGUI : MonoBehaviour
         _guiManager.GenerateGUICanvas();
         _guiManager.GenerateBackgroundCanvas();
         _guiManager.GenerateEventSystem();
+        _guiManager.GenerateSafeArea();
         _guiManager.GenerateBackground();
         _guiManager.GeneratePauseButton();
     }

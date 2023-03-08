@@ -9,9 +9,11 @@ using FontStyles = UnityEngine.TextCore.Text.FontStyles;
 
 public class TutorialPageInit : MonoBehaviour
 {
+    [SerializeField] private GUIManager _guiManager;
+
     private string pgText = File.ReadAllText("./Assets/Resources/tutorialPGs.json");
     private GameObject PageHolder;
-    
+
     /*private List<string> pages = JsonConvert.DeserializeObject<List<string>>(pgText);*/
 
     // Start is called before the first frame update
@@ -27,16 +29,14 @@ public class TutorialPageInit : MonoBehaviour
         var spacingFactor = .5f;
         var pgNum = 0;
 
-        PageHolderInit();
-        
-    
-        
+        _guiManager.PageHolderInit(4);
+
         foreach (var page in pages)
         {
 
             var textPage = new GameObject();
             textPage.name = $"TextPage {pgNum}";
-            
+
             textPage.AddComponent<TextMeshProUGUI>();
             textPage.GetComponent<TextMeshProUGUI>().text = pages[pgNum];
             textPage.GetComponent<TextMeshProUGUI>().fontSize = 55;
@@ -46,22 +46,11 @@ public class TutorialPageInit : MonoBehaviour
             textPage.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height * (float)0.90);
             textPage.GetComponent<RectTransform>().localPosition = new Vector3(Screen.width * spacingFactor, Screen.height / (float)2.5, 0);
 
-            textPage.transform.SetParent(PageHolder.transform, false);
+            textPage.transform.SetParent(GameObject.Find("PageHolder").transform, false);
             textPage.transform.SetAsLastSibling();
 
             spacingFactor++;
             pgNum++;
         }
     }
-
-    private void PageHolderInit()
-    {
-        PageHolder = new GameObject();
-        PageHolder.name = "PageHolder";
-        PageSwiper swiper = PageHolder.AddComponent<PageSwiper>();
-        swiper.totalPages = 4; //I WILL FIX THIS SO IT'S DYNAMIC EVENTUALLY
-        PageHolder.transform.SetParent(GameObject.Find("GUICanvas").transform);
-        PageHolder.AddComponent<CanvasRenderer>();
-    }
-
 }
