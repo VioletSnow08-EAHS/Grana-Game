@@ -11,7 +11,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     public float easing = 0.5f;
     public int totalPages = 0;
     private int currentPage = 1;
-    
+
 
     private void Start()
     {

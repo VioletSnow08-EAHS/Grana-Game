@@ -20,9 +20,8 @@ public class LevelSelectGUI : MonoBehaviour
         LevelSelectGUIManager.GenerateGUICanvas();
         LevelSelectGUIManager.GenerateBackgroundCanvas();
         LevelSelectGUIManager.GenerateEventSystem();
+        LevelSelectGUIManager.GenerateSafeArea();
         LevelSelectGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         LevelSelectGUIManager.GeneratePauseButton();
-        LevelSelectGUIManager.GenerateTitleText(new Vector2(0, 0), TitleImage);
     }
-
 }
