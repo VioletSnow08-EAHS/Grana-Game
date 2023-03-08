@@ -36,8 +36,6 @@ public class GameTimer : MonoBehaviour
             float width = gameTime / this.duration * Screen.width;
             timer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, Screen.height * 0.02f);
             
-            
-            
             yield return null;
         }
 
@@ -51,9 +49,13 @@ public class GameTimer : MonoBehaviour
 
     private void OnTimerEnd()
     {
+        GameObject BackgroundBlur = Instantiate((GameObject)Resources.Load("Prefabs/BackgroundBlur"), new Vector3(0f, 0f, 0f), Quaternion.identity);
+        BackgroundBlur.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
+        BackgroundBlur.transform.SetAsLastSibling();
         
+        //show alert
+        GameObject.Find("GameManager").GetComponent<GameManager>().DisplayAlert("endAlert", "Time's up!", 0.4f, 1f, 100, 2);
     }
-    
     
     
 

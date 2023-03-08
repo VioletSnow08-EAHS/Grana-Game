@@ -19,17 +19,20 @@ public class SubmitManager : MonoBehaviour
     public void SubmitPressedCallback()
     {
         var text = GameObject.Find("TextOutput").GetComponent<TextMeshProUGUI>();
-
-        bool guess = GameObject.Find("GameManager").GetComponent<GameManager>().submitWord(text.text);
-
-        if (guess)
+        if (text.text != "")
         {
-            StartCoroutine(FadeOutCR(text, new Color(0.09803922f, .6666667f, 0, 1)));
+            bool guess = GameObject.Find("GameManager").GetComponent<GameManager>().submitWord(text.text);
+
+            if (guess)
+            {
+                StartCoroutine(FadeOutCR(text, new Color(0.09803922f, .6666667f, 0, 1)));
+            }
+            else if (!guess)
+            {
+                StartCoroutine(FadeOutCR(text, new Color(1, 0, 0.0361886f, 1)));
+            }
         }
-        else if (!guess)
-        {
-            StartCoroutine(FadeOutCR(text, new Color(1, 0, 0.0361886f, 1)));
-        }
+        
     }
     private IEnumerator FadeOutCR(TextMeshProUGUI text, Color color)
     {
