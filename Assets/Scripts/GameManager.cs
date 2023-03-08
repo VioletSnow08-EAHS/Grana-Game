@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,11 +22,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int totalPoints;
     [SerializeField] private List<string> wordsUsed;
     [SerializeField] private TextMeshProUGUI scoreBox;
+    private Random rand = new Random();
 
 
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        yield return new WaitForSeconds(5);
         InitializeGame();
         yield return new WaitForEndOfFrame();
         scoreBox = GameObject.Find("ScoreBox").GetComponent<TextMeshProUGUI>();
@@ -74,12 +79,18 @@ public class GameManager : MonoBehaviour
             scoreBox.GetComponent<TextMeshProUGUI>().text = $"Score: {totalPoints}";
             Debug.Log($"Points received for word \"{word}\": {pointsReceived} points.");
             Debug.Log($"Total points now: {totalPoints}");
+
+            DisplayAlert(rand.NextDouble() + "Success", $"+{pointsReceived} for {word}", 0.2f, 1f, 60, 0.3f);
+            
             return true;
         }
         else
         {
             //false, output error msg --> need to define specific errors later
             Debug.Log($"\"{word}\" is not a valid word/has already been used.");
+            
+            DisplayAlert( rand.NextDouble() + "Fail", $"{word} is invalid.", 0.2f, 2f, 60, 0.3f);
+            
             return false;
         }
     }
@@ -117,13 +128,16 @@ public class GameManager : MonoBehaviour
         Debug.Log($"gameWord has been updated to: \"{word}\".");
     }
 
-    //load in the anagrams for the current word
-    public void SetAnagramsList(List<string> anagrams)
+
+    public void DisplayAlert(String name, String text,  float duration1, float duration2, int fontSize, float inBetween = 0)
     {
-        this.anagramsList = anagrams;
-        foreach (string word in anagrams)
-        {
-            Debug.Log($"added \"{word}\"");
-        }
+        Vector2 size = new Vector2(Screen.width * 0.8f, Screen.height * 0.1f);
+        Vector2 position = new Vector2(0, Screen.height * 0.20f);
+        GameObject.Find("GUIManager").GetComponent<GUIManager>().GenerateTextBox(position, name, size, fontSize, text);
+        GameObject.Find(name).AddComponent<GameAlert>();
+        GameObject.Find(name).GetComponent<GameAlert>().thisAlert = GameObject.Find(name);
+        GameObject.Find(name).GetComponent<GameAlert>().duration1 = duration1;
+        GameObject.Find(name).GetComponent<GameAlert>().duration2 = duration2;
+        GameObject.Find(name).GetComponent<GameAlert>().inBetween = inBetween;
     }
 }
