@@ -12,7 +12,7 @@ public class GameScreenGUI : MonoBehaviour
     void Start()
     {
         gameWord = "LEMONS";
-        
+
         GameScreenGUIManager.GenerateGUICanvas();
         GameScreenGUIManager.GenerateSafeArea();
         GameScreenGUIManager.GenerateBackgroundCanvas();
@@ -22,9 +22,9 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         GameScreenGUIManager.GeneratePauseButton();
         GameScreenGUIManager.StartGame(gameWord);
-        GameScreenGUIManager.GenerateTextBox(new Vector2(0, 200), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, gameWord);
+        GameScreenGUIManager.GenerateTextBox(new Vector2(0, 200), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, gameWord, TMPro.TextAlignmentOptions.Center);
         GameScreenGUIManager.GenerateSubmitButton();
-        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ");
-        GameScreenGUIManager.GenerateTimer(20);
+        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ", TMPro.TextAlignmentOptions.MidlineLeft);
+        GameScreenGUIManager.GenerateTimer(60);
     }
 }

@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Unity.VisualStudio.Editor;
 using Newtonsoft.Json;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class GUIManager : MonoBehaviour
 {
@@ -32,8 +36,10 @@ public class GUIManager : MonoBehaviour
     {
         GameObject safeArea = new GameObject();
         safeArea.name = "SafeArea";
+        safeArea.AddComponent<RectTransform>();
         safeArea.AddComponent<SafeArea>();
 
+        /*        safeArea.GetComponent<SafeArea>().SetRectTransform(safeArea.GetComponent<RectTransform>());*/
         safeArea.transform.SetParent(GUICanvas.transform);
         SafeArea = safeArea;
     }
@@ -86,7 +92,8 @@ public class GUIManager : MonoBehaviour
         newTextBoxBackground.GetComponent<TextOutputBackground>().ParentGameObject = newTextBox;
         newTextBoxBackground.GetComponent<TextOutputBackground>().currentOutputBackground = newTextBoxBackground;
         newTextBoxBackground.GetComponent<TextOutputBackground>().SetImage(index);
-        newTextBoxBackground.transform.SetParent(BackgroundCanvas.transform);
+        newTextBoxBackground.transform.SetParent(SafeArea.transform);
+        newTextBoxBackground.transform.SetAsFirstSibling();
     }
 
     public void GenerateBackground(/*Sprite image*/)
@@ -111,11 +118,13 @@ public class GUIManager : MonoBehaviour
     public void GenerateMenuButton(string type, string text, Vector2 position)
     {
         GameObject newButton = Instantiate((GameObject)Resources.Load("Prefabs/MenuButtonPrefab"), position, Quaternion.identity);
-        newButton.name = "default_menu_button";
+        newButton.name = type;
         newButton.GetComponent<MenuButtonManager>().SetCurrentButton(newButton.GetComponent<Button>());
         newButton.GetComponent<MenuButtonManager>().SetType(type);
-        /*        newButton.GetComponent<MenuButtonManager>().SetPosition(position);*/
+
         newButton.GetComponent<MenuButtonManager>().SetButtonText(text);
+        newButton.transform.SetParent(GUICanvas.transform);
+        newButton.GetComponent<MenuButtonManager>().SetPosition(position);
         newButton.transform.SetParent(SafeArea.transform);
     }
 
@@ -143,7 +152,7 @@ public class GUIManager : MonoBehaviour
         newTextBox.GetComponent<TextMeshProUGUI>().text = text;
         newTextBox.GetComponent<TextMeshProUGUI>().fontSize = fontSize;
         newTextBox.GetComponent<TextMeshProUGUI>().alignment = textAlignment;
-        newTextBox.transform.position = position;
+        newTextBox.transform.localPosition = position;
         newTextBox.name = name;
         newTextBox.GetComponent<RectTransform>().sizeDelta = size;
     }
@@ -168,7 +177,29 @@ public class GUIManager : MonoBehaviour
         timer.GetComponent<GameTimer>().gameTime = time;
 
     }
-    
+
+    public void PageHolderInit(int pageNum)
+    {
+        GameObject PageHolder = new GameObject();
+        PageHolder.name = "PageHolder";
+        PageHolder.AddComponent<PageSwiper>();
+        PageHolder.GetComponent<PageSwiper>().totalPages = pageNum;
+        PageHolder.transform.SetParent(GUICanvas.transform);
+        PageHolder.AddComponent<CanvasRenderer>();
+        GameObject swipeArea = new GameObject();
+        swipeArea.name = "SwipeArea";
+        swipeArea.transform.SetParent(PageHolder.transform);
+        swipeArea.transform.SetAsFirstSibling();
+        swipeArea.AddComponent<RectTransform>();
+        swipeArea.AddComponent<CanvasRenderer>();
+        swipeArea.AddComponent<Image>();
+
+        swipeArea.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        swipeArea.GetComponent<RectTransform>().position = new Vector2((Screen.width * pageNum / 2), Screen.height * .425f);
+        swipeArea.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+        swipeArea.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width * pageNum, Screen.height * .85f);
+    }
+
     public void StartGame(string word)
     {
         GameManager = Instantiate((GameObject)Resources.Load("Prefabs/GameManagerPrefab"), new Vector3(0f, 0f, 0f), Quaternion.identity);

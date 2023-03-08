@@ -12,8 +12,10 @@ public class SafeArea : MonoBehaviour
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        safeArea = Screen.safeArea;
-        minAnchor = safeArea.position;
+        rectTransform.sizeDelta = Screen.safeArea.size;
+
+        rectTransform.localPosition = new Vector2(Screen.width / 2, Screen.height / 2);
+        /*minAnchor = safeArea.position;
         maxAnchor = minAnchor + safeArea.size;
 
         minAnchor.x /= Screen.width;
@@ -22,6 +24,11 @@ public class SafeArea : MonoBehaviour
         maxAnchor.y /= Screen.height;
 
         rectTransform.anchorMin = minAnchor;
-        rectTransform.anchorMax = maxAnchor;
+        rectTransform.anchorMax = maxAnchor;*/
+    }
+
+    public void SetRectTransform(RectTransform rect)
+    {
+        rectTransform = rect;
     }
 }

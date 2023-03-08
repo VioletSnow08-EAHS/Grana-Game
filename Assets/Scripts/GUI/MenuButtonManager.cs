@@ -24,7 +24,6 @@ public class MenuButtonManager : MonoBehaviour
 
     public void UpdateRectTransform()
     {
-        position = GetComponentInParent<RectTransform>().transform.position;
         currentRectTransform.transform.localPosition = position;
 
         size = GetComponentInParent<RectTransform>().transform.localScale;

@@ -24,6 +24,7 @@ public class MainMenuGUI : MonoBehaviour
         MainMenuGUIManager.GenerateEventSystem();
         MainMenuGUIManager.GenerateBackgroundCanvas();
         MainMenuGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
+        MainMenuGUIManager.GenerateSafeArea();
         MainMenuGUIManager.GenerateTitleText(new Vector2(0, 0), TitleImage);
         /*MainMenuGUIManager.GenerateMenuButton("DPB", "DAILY", new Vector2(0, 100));       */ //Commented until daily puzzle implementation
         MainMenuGUIManager.GenerateMenuButton("LVM", "LEVELS", new Vector2(0, -100));

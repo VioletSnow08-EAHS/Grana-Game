@@ -17,11 +17,6 @@ public class TextOutputBackground : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        UpdateRectTransform();
-    }
-
     public void UpdateRectTransform()
     {
         RectTransform.sizeDelta = new Vector2(ParentGameObject.GetComponent<RectTransform>().sizeDelta.x, ParentGameObject.GetComponent<RectTransform>().sizeDelta.y);
