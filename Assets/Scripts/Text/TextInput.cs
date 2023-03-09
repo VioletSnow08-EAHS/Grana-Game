@@ -33,8 +33,8 @@ public class TextInput : MonoBehaviour
     {
         rectTransform.sizeDelta = new Vector2(width * Screen.width / 3, height * Screen.height / 5);
 
-        float xPos = Screen.width * X;
-        float yPos = Screen.height * Y;
+        float xPos = 0; //Screen.width * X;
+        float yPos = 0; //Screen.height * Y;
 
         currentTextBox.GetComponent<RectTransform>().localPosition = new Vector3(xPos, yPos, Z);
     }

@@ -23,13 +23,6 @@ public class GameScreenGUI : MonoBehaviour
         GameScreenGUIManager.GenerateTextInputBox(1);
         GameScreenGUIManager.GenerateBackground(/*Resources.Load<Sprite>("Images/backgroundBlue")*/);
         GameScreenGUIManager.GeneratePauseButton();
-<<<<<<< HEAD
-        GameScreenGUIManager.StartGame(gameWord);
-        GameScreenGUIManager.GenerateTextBox(new Vector2(0, 200), "GameWordDisplay", new Vector2(Screen.width * .8f, Screen.height * .075f), 100, gameWord, TMPro.TextAlignmentOptions.Center);
-        GameScreenGUIManager.GenerateSubmitButton();
-        GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ", TMPro.TextAlignmentOptions.MidlineLeft);
-        GameScreenGUIManager.GenerateTimer(60);
-=======
         GameScreenGUIManager.GenerateSubmitButton();
         GameScreenGUIManager.GenerateTextBox(new Vector2(Screen.width * .25f, Screen.height * .40f), "ScoreBox", new Vector2(Screen.width * .4f, Screen.height * .025f), 50, "Score: ");
 
@@ -68,7 +61,6 @@ public class GameScreenGUI : MonoBehaviour
         GameObject BackgroundBlur = Instantiate((GameObject)Resources.Load("Prefabs/BackgroundBlur"), new Vector3(0f, 0f, 0f), Quaternion.identity);
         BackgroundBlur.transform.SetParent(GameObject.Find("GUICanvas").GetComponent<Transform>());
         BackgroundBlur.transform.SetAsLastSibling();
->>>>>>> unity
     }
     
 }

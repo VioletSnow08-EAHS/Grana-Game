@@ -142,7 +142,7 @@ public class GUIManager : MonoBehaviour
         title.transform.SetParent(SafeArea.transform);
     }
 
-    public void GenerateTextBox(Vector2 position, string name, Vector2 size, int fontSize, string text, TextAlignmentOptions textAlignment)
+    public void GenerateTextBox(Vector2 position, string name, Vector2 size, int fontSize, string text, TextAlignmentOptions textAlignment = TextAlignmentOptions.Center) //made text alignment center by default for convenience
     {
         GameObject newTextBox = new GameObject();
         newTextBox.AddComponent<TextMeshProUGUI>();
